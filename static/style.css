@@ -1,0 +1,153 @@
+html {
+    height: 100%;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+    font-size: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.background {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.artist-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.data {
+    width: 30%;
+    max-width: 400px;
+    background-color: #666A6D;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    opacity: 85%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.data:hover {
+    transform: scale(1.05);
+    transition: 0.4s;
+    opacity: 100%;
+}
+
+h2 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+a:active,
+a:visited {
+    color: white;
+}
+
+a {
+  color: rgb(255, 255, 255);
+}
+
+a:hover {
+  color: #FF681F;
+}
+
+h1 {
+    font-size: 60px;
+    color: white;
+    text-shadow: 6px 6px 13px rgba(0,0,0,0.3);
+}
+
+footer {
+    background-color: #666A6D;
+    color: #FFF;
+    padding: 20px;
+    text-align: center;
+    bottom: 0;
+    width: 97.2%;
+    opacity: 85%;
+}
+
+footer p {
+    margin: 5px;
+}
+
+
+#artist-detail-container {
+    width: 80%;
+    margin: 0 auto;
+    background-color: rgba(23, 23, 23, 0.479); 
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif; 
+}
+
+#artist-detail-container h2 {
+    font-size: 28px;
+    margin-top: 20px;
+    text-transform: uppercase; 
+}
+
+#artist-detail-container p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#artist-detail-container ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+#artist-detail-container ul li {
+    list-style-type: none;
+}
+
+#artist-detail-container a {
+    color: #FF9944;
+    text-decoration: none;
+}
+
+#artist-detail-container a:hover {
+    text-decoration: underline;
+}
+
+.image {
+    margin: 0 auto;
+    display: block;
+}
+
+.image:hover {
+    cursor: default;
+}
+
+.creation {
+    display: inline-block;
+    max-width: 160px;
+}
+
+.location,
+.dates,
+.relation {
+    margin-top: 55px;
+    display: inline-block;
+    max-width: 414px;
+}
+
+.dates {
+    margin-left: 150px;
+}
+
+.relation {
+    margin-left: 150px;
+}

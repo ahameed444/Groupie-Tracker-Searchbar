@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="./static/icon.gif" type="gif">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+    </style>
+    <title>Groupie Trackers Data</title>
+</head>
+<body>
+    <form action="/search" method="GET">
+        <input type="text" name="query" placeholder="Search...">
+        <input type="submit" value="Search">
+        </form>
+    <Body class="background" background="./static/artist3.jpg"></Body>
+    <h1>Groupie Trackers Data</h1>
+    <div class="artist-container">
+    {{range .}}
+    <div class ="data">
+        <h2><a style="text-decoration:none" href="/artistData/{{.A.Id}}">{{.A.Name}}</a></h2>
+        <a href="/artistData/{{.A.Id}}" rel="noopener noreferrer">
+            <input type="image" src={{.A.Image}} style="width: 145px; height: auto;">
+        </a>
+        <p>Creation Date: {{.A.CreationDate}}</p>
+        <p>First Album: {{.A.FirstAlbum}}</p>
+    </div>
+    {{end}}
+    </div>
+    <footer>
+        <p>Total Artists: {{len .}}</p>
+    </footer>
+</body>
+</html>

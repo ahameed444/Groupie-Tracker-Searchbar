@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/static/icon.gif" type="gif">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+    </style>
+    <title>Artist Details</title>
+</head>
+<body>
+    <Body class="background" background="/static/concert.jpg"></Body>
+    <h1>Artist Details</h1>
+    <div id="artist-detail-container">
+            <h2 style="color:#FF681F">{{.A.Name}}</h2>
+            <input class="image" type="image" src={{.A.Image}} style="width: 145px; height: auto;">
+        <p class="creation"><strong><span style="color:#FF681F">Creation Date:</span></strong> {{.A.CreationDate}}</p>
+        <p class="falbum"><strong><span style="color:#FF681F">First Album:</span></strong></p>
+        <p>{{.A.FirstAlbum}}</p>
+        <div class="location">
+            <p><strong><span style="color:#FF681F">Location:</span></strong></p>
+        <ul>
+            {{range .L.Locations}}
+            <li>{{.}}</li>
+            {{end}}
+        </ul>
+        </div>
+        <div class="dates">
+            <p><strong><span style="color:#FF681F">Dates:</span></strong></p>
+        <ul>
+            {{range .D.Dates}}
+            <li>{{.}}</li>
+            {{end}}
+        </ul>
+        </div>
+        <div class="relation">
+            <p><strong><span style="color:#FF681F">Relations:</span></strong></p>
+        <ul>
+            {{range $key, $value := .R.DatesLocations}}
+            <li>{{printf "%s: %v" $key $value}}</li>
+            {{end}}
+        </ul>
+        </div>
+        {{if .A.Members}}
+        <p class="members"><strong><span style="color:#FF681F">Members:</span></strong> {{range .A.Members}}{{.}}, {{end}}</p>
+        {{end}}
+    </div>
+</body>
+</html>
