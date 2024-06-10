@@ -48,6 +48,33 @@ var (
 	relationInfo []Relation
 )
 
+func ArtistData1() []Data {
+	artist, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	if err != nil {
+		log.Fatal()
+	}
+	artistData, err := io.ReadAll(artist.Body)
+	if err != nil {
+		log.Fatal()
+	}
+	json.Unmarshal(artistData, &artistInfo)
+
+	data := ConvertToData(artistInfo)
+	return data
+}
+
+func ConvertToData(artists []Artist) []Data {
+	var data []Data
+	for _, artist := range artists {
+		newData := Data{
+			A: artist,
+			// Initialize other fields of Data struct if needed
+		}
+		data = append(data, newData)
+	}
+	return data
+}
+
 func ArtistData() []Artist {
 	artist, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
@@ -176,6 +203,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := collectData()
+	// fmt.Println("Data:", data)
 	err = tmpl.ExecuteTemplate(w, "index.html", data)
 	if err != nil {
 		fmt.Println("Error executing template:", err)
@@ -184,6 +212,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// {2 SOJA https://groupietrackers.herokuapp.com/api/images/soja.jpeg [Jacob Hemphill Bob Jefferson Ryan "Byrd" Berty Ken Brownell Patrick O'Shea Hellman Escorcia Rafael Rodriguez Trevor Young] 1997 05-06-2002 https://groupietrackers.herokuapp.com/api/locations/2 https://groupietrackers.herokuapp.com/api/relation/2}
+// {{2 SOJA https://groupietrackers.herokuapp.com/api/images/soja.jpeg [Jacob Hemphill Bob Jefferson Ryan "Byrd" Berty Ken Brownell Patrick O'Shea Hellman Escorcia Rafael Rodriguez Trevor Young] 1997 05-06-2002 https://groupietrackers.herokuapp.com/api/locations/2 https://groupietrackers.herokuapp.com/api/relation/2} {map[noumea-new_caledonia:[15-11-2019] papeete-french_polynesia:[16-11-2019] playa_del_carmen-mexico:[05-12-2019 06-12-2019 07-12-2019 08-12-2019 09-12-2019]]} {[playa del carmen, mexico papeete, french polynesia noumea, new caledonia]} {[*05-12-2019 06-12-2019 07-12-2019 08-12-2019 09-12-2019 *16-11-2019 *15-11-2019]}}
 func artistDataHandler(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) < 3 || parts[2] == "" {
@@ -234,7 +264,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	search := q.Get("query")
 	fmt.Print("THIS  IS SEARCH ", search)
 
-	data := ArtistData()
+	data := ArtistData1()
 	if len(search) != 0 {
 		data = filter(data, search)
 	}
@@ -247,16 +277,17 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func filter(artists []Artist, search string) []Artist {
-	var results []Artist
+func filter(data []Data, search string) []Data {
+	var results []Data
 	lowerSearch := strings.ToLower(search)
-	for _, a := range artists {
+	for _, d := range data {
+		a := d.A
 		if strings.Contains(strings.ToLower(a.Name), lowerSearch) ||
 			containsInSlice(lowerSearch, a.Members) ||
 			strings.Contains(strings.ToLower(a.Locations), lowerSearch) ||
 			strings.Contains(strings.ToLower(a.FirstAlbum), lowerSearch) ||
 			strings.Contains(strings.ToLower(strconv.Itoa(int(a.CreationDate))), lowerSearch) {
-			results = append(results, a)
+			results = append(results, d)
 		}
 	}
 	return results
